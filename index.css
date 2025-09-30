@@ -1,0 +1,431 @@
+/* Definição de Variáveis */
+:root {
+    --cor-primaria: #ffaa32; /* Laranja/Amarelo Principal */
+    --cor-secundaria: #9f5f03; /* Cor dos Títulos */
+    --cor-fundo: #fffaf3; /* Fundo Creme */
+    --cor-texto: #333;
+    --sombra-cartao: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Reset Global e Box Sizing */
+* {
+    box-sizing: border-box; 
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    text-align: center;
+}
+
+/* Base do Botão de Pedido */
+.btn-pedido {
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+/* Cabeçalho */
+header {
+    background-color: var(--cor-primaria);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    position: relative;
+    min-height: 160px; 
+}
+
+header img {
+    height: 100%; 
+    max-height: 120px;
+}
+
+/* Estilo do Botão no Header (Posicionado) */
+.btn-pedido-header {
+    position: absolute;
+    right: 40px;
+    background-color: #fff;
+    color: var(--cor-primaria);
+    padding: 12px 25px;
+    font-size: 16px;
+}
+
+.btn-pedido-header:hover {
+    background-color: #ffe3b0;
+}
+
+/* Mensagem inicial */
+.mensagem h1 {
+    font-size: 32px;
+    color: var(--cor-secundaria);
+    margin-top: 30px;
+}
+
+.mensagem p { 
+    font-size: 18px;
+    color: #000;
+    margin-top: 10px;
+    font-weight: normal;
+}
+
+/* Títulos */
+h2 {
+    font-size: 26px;
+    margin: 40px 0 20px;
+    color: var(--cor-secundaria);
+}
+
+/* Cardápio (Com Imagens) */
+.cardapio {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 50px;
+    flex-wrap: wrap; 
+}
+
+.cardapio .item {
+    position: relative;
+    width: 280px;
+    cursor: pointer; 
+}
+
+.cardapio img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.cardapio .info {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+}
+
+/* --- Cardápio de Texto (Com Pontilhado) --- */
+.cardapio-texto {
+    max-width: 700px; 
+    margin: 30px auto 70px auto;
+    text-align: left;
+    padding: 0 20px;
+}
+
+.cardapio-texto h3 {
+    text-align: center;
+    color: var(--cor-secundaria);
+    font-size: 22px;
+    margin-top: 30px;
+    border-bottom: 2px solid var(--cor-primaria);
+    padding-bottom: 5px;
+}
+
+.cardapio-texto dl {
+    padding: 0;
+    margin: 20px 0;
+}
+
+/* O elemento que contém o nome do item */
+.cardapio-texto dt {
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--cor-texto);
+    margin-top: 10px;
+    display: flex; 
+    justify-content: space-between; 
+    line-height: 1.5; 
+    position: relative; 
+}
+
+/* O contêiner para o nome do item e os pontilhados */
+.cardapio-texto dt span.nome-item {
+    order: 1; 
+    background-color: var(--cor-fundo); 
+    padding-right: 5px; 
+    position: relative;
+    z-index: 2; 
+}
+
+/* O contêiner para o preço */
+.cardapio-texto dt span.preco {
+    order: 3; 
+    background-color: var(--cor-fundo); 
+    padding-left: 5px; 
+    position: relative;
+    z-index: 2;
+    font-weight: bold;
+    color: var(--cor-secundaria);
+}
+
+/* O elemento que cria os pontilhados */
+.cardapio-texto dt::after {
+    content: "........................................................................................................................................................"; 
+    order: 2; 
+    display: block;
+    white-space: nowrap; 
+    overflow: hidden; 
+    letter-spacing: 2px; 
+    color: #ccc; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1; 
+}
+
+/* Estilo da descrição (para Torta Holandesa e outros itens com <dd>) */
+.cardapio-texto dd {
+    margin-left: 0;
+    font-size: 16px;
+    padding-left: 15px;
+    color: #666; 
+    border-left: 3px solid #ffaa3250; 
+    margin-top: 5px;
+    margin-bottom: 15px; /* Adiciona um espaço abaixo da descrição */
+}
+/* FIM Cardápio de Texto */
+
+
+/* Sobre nós */
+.sobre-nos {
+    background-color: #fef08a;
+    padding: 40px 20px;
+    margin-bottom: 50px; 
+}
+
+.sobre-nos p {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+
+/* --- SEÇÃO: Informações Úteis (Cartões) --- */
+.informacoes-uteis {
+    padding: 20px;
+}
+
+.cartoes-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto 50px auto;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
+.cartao {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--sombra-cartao); 
+    width: 300px;
+    text-align: center;
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+
+.cartao h3 {
+    color: var(--cor-secundaria);
+    margin-top: 0;
+    font-size: 20px;
+    border-bottom: 2px solid var(--cor-primaria);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.cartao p {
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: justify; 
+    margin-bottom: 20px; 
+    flex-grow: 1; 
+}
+
+.cartao img {
+    max-width: 90px; 
+    height: auto;
+    display: block; 
+    margin: 10px auto 0 auto; 
+    box-shadow: none; 
+}
+
+
+/* Seção Pedido (Principal) */
+.pedido {
+    margin: 50px 0;
+}
+
+.pedido p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Estilo do Botão Principal */
+.btn-pedido-principal {
+    background-color: var(--cor-primaria);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 18px;
+}
+
+.btn-pedido-principal:hover {
+    background-color: #dd8c44;
+}
+
+/* Rodapé */
+footer {
+    background-color: var(--cor-primaria);
+    color: #fff;
+    padding: 20px;
+    font-size: 14px;
+    margin-top: 50px;
+}
+
+/* --- Modal (Imagem Expandida) --- */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 100; 
+    padding-top: 60px; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.9); 
+    cursor: pointer;
+}
+
+.conteudo-modal {
+    margin: auto;
+    display: block;
+    width: 90%;
+    max-width: 700px;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+    border-radius: 12px;
+}
+
+@keyframes zoom {
+    from {transform:scale(0.8)} 
+    to {transform:scale(1)}
+}
+
+.fechar {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.fechar:hover,
+.fechar:focus {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* --- Responsividade (Media Queries) --- */
+
+@media (max-width: 768px) {
+    /* Ajuste do Header */
+    header {
+        flex-direction: column;
+        min-height: auto;
+        padding-bottom: 20px;
+    }
+    
+    /* Reposicionamento do Botão do Header para Mobile */
+    .btn-pedido-header {
+        position: static; 
+        margin-top: 15px; 
+        width: 80%; 
+        max-width: 300px;
+    }
+
+    /* Cardápio: Empilha os itens verticalmente */
+    .cardapio {
+        flex-direction: column;
+        align-items: center; 
+    }
+    
+    .cardapio .item {
+        width: 90%; 
+        max-width: 350px;
+    }
+    
+    /* Cardápio de Texto */
+    .cardapio-texto {
+        margin-bottom: 50px;
+    }
+    
+    /* Ajuste do cardápio de texto para mobile */
+    .cardapio-texto dt {
+        flex-direction: column;
+        align-items: flex-start;
+        position: static;
+    }
+    
+    .cardapio-texto dt span.nome-item {
+        padding-right: 0;
+        background-color: transparent;
+    }
+    
+    .cardapio-texto dt span.preco {
+        padding-left: 0;
+        margin-top: 2px;
+        color: var(--cor-secundaria); /* Mantém o preço destacado */
+    }
+    
+    .cardapio-texto dt::after {
+        content: none; /* Remove pontilhados no mobile */
+    }
+
+    /* Cartões: Empilha os cartões verticalmente em mobile e remove alinhamento fixo */
+    .cartoes-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        align-items: center; 
+    }
+    
+    .cartao {
+        width: 90%; 
+        max-width: 350px;
+        height: auto; 
+        justify-content: flex-start;
+    }
+    
+    .cartao p {
+        flex-grow: 0;
+    }
+
+    /* Ajuste de Fontes */
+    .mensagem h1 {
+        font-size: 24px;
+    }
+
+    .conteudo-modal {
+        width: 95%; 
+        max-width: 95%;
+    }
+}
