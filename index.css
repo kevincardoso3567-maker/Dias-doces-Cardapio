@@ -4,6 +4,8 @@
     --cor-secundaria: #9f5f03; /* Cor dos Títulos */
     --cor-fundo: #fffaf3; /* Fundo Creme */
     --cor-texto: #333;
+    --cor-whatsapp: #25D366; /* Verde WhatsApp */
+    --cor-whatsapp-hover: #1FAF59;
     --sombra-cartao: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -79,19 +81,31 @@ h2 {
     color: var(--cor-secundaria);
 }
 
-/* Cardápio (Com Imagens) */
+/* --- ESTILOS DO CARROSSEL --- */
+.carousel-container {
+    max-width: 960px; 
+    margin: 0 auto 50px auto;
+    position: relative;
+    overflow: hidden; 
+}
+
 .cardapio {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; 
     gap: 30px;
-    margin-bottom: 50px;
-    flex-wrap: wrap; 
+    margin: 0; 
+    padding: 0 50px; 
+    transition: transform 0.5s ease-in-out; 
+    flex-wrap: nowrap; 
+    overflow-x: hidden; 
 }
 
 .cardapio .item {
-    position: relative;
+    flex-shrink: 0; 
     width: 280px;
     cursor: pointer; 
+    /* Garante que nada vaze do item individual */
+    overflow: hidden; 
 }
 
 .cardapio img {
@@ -99,19 +113,54 @@ h2 {
     height: auto;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.3s;
 }
 
-.cardapio .info {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    color: #fff;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 1.4;
-    text-align: left;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+.cardapio .item:hover img {
+    transform: scale(1.02);
 }
+
+/* Estilos das Setas */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    
+    /* TORNA O BOTÃO INVISÍVEL */
+    opacity: 0;
+    pointer-events: none; /* Impede o clique */
+    transition: none; /* Evita que o botão pisque */
+    
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+/* Regra desnecessária com opacity: 0, mas mantida por segurança */
+.carousel-btn:disabled {
+    opacity: 0; /* Mantém 0 para que nunca apareça */
+    cursor: not-allowed;
+}
+
+/* FIM: ESTILOS DO CARROSSEL */
 
 /* --- Cardápio de Texto (Com Pontilhado) --- */
 .cardapio-texto {
@@ -135,7 +184,6 @@ h2 {
     margin: 20px 0;
 }
 
-/* O elemento que contém o nome do item */
 .cardapio-texto dt {
     font-weight: bold;
     font-size: 18px;
@@ -147,7 +195,6 @@ h2 {
     position: relative; 
 }
 
-/* O contêiner para o nome do item e os pontilhados */
 .cardapio-texto dt span.nome-item {
     order: 1; 
     background-color: var(--cor-fundo); 
@@ -156,7 +203,6 @@ h2 {
     z-index: 2; 
 }
 
-/* O contêiner para o preço */
 .cardapio-texto dt span.preco {
     order: 3; 
     background-color: var(--cor-fundo); 
@@ -167,7 +213,6 @@ h2 {
     color: var(--cor-secundaria);
 }
 
-/* O elemento que cria os pontilhados */
 .cardapio-texto dt::after {
     content: "........................................................................................................................................................"; 
     order: 2; 
@@ -183,7 +228,6 @@ h2 {
     z-index: 1; 
 }
 
-/* Estilo da descrição (para Torta Holandesa e outros itens com <dd>) */
 .cardapio-texto dd {
     margin-left: 0;
     font-size: 16px;
@@ -191,7 +235,7 @@ h2 {
     color: #666; 
     border-left: 3px solid #ffaa3250; 
     margin-top: 5px;
-    margin-bottom: 15px; /* Adiciona um espaço abaixo da descrição */
+    margin-bottom: 15px; 
 }
 /* FIM Cardápio de Texto */
 
@@ -275,17 +319,17 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* Estilo do Botão Principal */
-.btn-pedido-principal {
-    background-color: var(--cor-primaria);
+/* Estilo do Botão WhatsApp (Cor Verde) */
+.btn-whatsapp {
+    background-color: var(--cor-whatsapp);
     color: #fff;
     padding: 14px 28px;
     border-radius: 12px;
     font-size: 18px;
 }
 
-.btn-pedido-principal:hover {
-    background-color: #dd8c44;
+.btn-whatsapp:hover {
+    background-color: var(--cor-whatsapp-hover);
 }
 
 /* Rodapé */
@@ -344,6 +388,7 @@ footer {
     cursor: pointer;
 }
 
+
 /* --- Responsividade (Media Queries) --- */
 
 @media (max-width: 768px) {
@@ -362,15 +407,24 @@ footer {
         max-width: 300px;
     }
 
-    /* Cardápio: Empilha os itens verticalmente */
+    /* Cardápio/Carrossel em Mobile */
+    .carousel-container {
+        max-width: 100%; 
+    }
+    
     .cardapio {
-        flex-direction: column;
-        align-items: center; 
+        padding: 0 40px; 
+        gap: 20px;
     }
     
     .cardapio .item {
-        width: 90%; 
-        max-width: 350px;
+        width: 250px; 
+    }
+    
+    .carousel-btn {
+        font-size: 20px;
+        width: 30px;
+        height: 30px;
     }
     
     /* Cardápio de Texto */
@@ -393,14 +447,14 @@ footer {
     .cardapio-texto dt span.preco {
         padding-left: 0;
         margin-top: 2px;
-        color: var(--cor-secundaria); /* Mantém o preço destacado */
+        color: var(--cor-secundaria);
     }
     
     .cardapio-texto dt::after {
-        content: none; /* Remove pontilhados no mobile */
+        content: none; 
     }
 
-    /* Cartões: Empilha os cartões verticalmente em mobile e remove alinhamento fixo */
+    /* Cartões: Empilha os cartões verticalmente em mobile */
     .cartoes-container {
         flex-direction: column;
         align-items: center;
