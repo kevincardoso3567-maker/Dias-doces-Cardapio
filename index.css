@@ -47,8 +47,6 @@ header img {
     max-height: 120px;
 }
 
-/* REMOVIDO: O estilo .btn-pedido-header */
-
 /* Mensagem inicial */
 .mensagem h1 {
     font-size: 32px;
@@ -71,6 +69,25 @@ h2 {
 }
 
 /* --- ESTILOS DO CARROSSEL --- */
+
+/* Estilo para o cabeçalho do carrossel (Título + Botões) */
+.carousel-header {
+    max-width: 960px;
+    margin: 0 auto 15px auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.carousel-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--cor-secundaria);
+}
+/* FIM NOVO */
+
+
 .carousel-container {
     max-width: 960px; 
     margin: 0 auto 50px auto;
@@ -80,17 +97,27 @@ h2 {
 
 .cardapio {
     display: flex;
-    /* Adiciona a propriedade de toque para melhor experiência em mobile */
-    -webkit-overflow-scrolling: touch; 
-    
     justify-content: flex-start; 
     gap: 30px;
     margin: 0; 
+    /* Padding para deixar margem nas laterais do container */
     padding: 0 50px; 
-    transition: transform 0.5s ease-in-out; 
     flex-wrap: nowrap; 
-    overflow-x: hidden; 
+    
+    /* CORREÇÃO: Habilita a rolagem nativa para o swipe/toque */
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch; 
 }
+
+/* Esconde a barra de rolagem (opcional, mas mantém o design limpo) */
+.cardapio::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+.cardapio {
+    -ms-overflow-style: none;  /* IE e Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
 
 .cardapio .item {
     flex-shrink: 0; 
@@ -111,43 +138,41 @@ h2 {
     transform: scale(1.02);
 }
 
-/* Estilos das Setas */
+/* Estilos dos Botões de Navegação (Agora acima do carrossel) */
 .carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    /* Botões visíveis e interativos */
+    opacity: 1; 
+    pointer-events: auto; 
+    transition: 0.2s; 
     
-    /* TORNA O BOTÃO INVISÍVEL PARA FOCO NO SWIPE */
-    opacity: 0;
-    pointer-events: none; /* Impede o clique */
-    transition: none; 
-    
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    font-size: 24px;
-    padding: 10px;
+    background: #fff;
+    border: 1px solid #ccc;
+    font-size: 18px;
+    padding: 8px 15px;
     cursor: pointer;
     z-index: 10;
-    border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     width: 40px;
     height: 40px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    margin-left: 5px;
 }
 
-.prev-btn {
-    left: 10px;
-}
-
-.next-btn {
-    right: 10px;
+.carousel-btn:hover {
+    background-color: var(--cor-primaria);
+    color: #fff;
+    border-color: var(--cor-primaria);
 }
 
 .carousel-btn:disabled {
-    opacity: 0; 
+    opacity: 0.4; 
     cursor: not-allowed;
+    background-color: #f5f5f5;
+    color: #333;
+    border-color: #ccc;
 }
 
 /* FIM: ESTILOS DO CARROSSEL */
@@ -389,8 +414,21 @@ footer {
         padding-bottom: 20px;
     }
     
-    /* Reposicionamento do Botão do Header para Mobile foi removido */
-
+    /* Esconde os botões em telas pequenas (foco no swipe) */
+    .carousel-header {
+        padding: 0 20px 0 20px;
+        justify-content: center; /* Centraliza o título */
+    }
+    
+    .carousel-nav-buttons {
+        display: none;
+    }
+    
+    .carousel-title {
+        text-align: center;
+        width: 100%;
+    }
+    
     /* Cardápio/Carrossel em Mobile */
     .carousel-container {
         max-width: 100%; 
@@ -403,12 +441,6 @@ footer {
     
     .cardapio .item {
         width: 250px; 
-    }
-    
-    .carousel-btn {
-        font-size: 20px;
-        width: 30px;
-        height: 30px;
     }
     
     /* Cardápio de Texto */
