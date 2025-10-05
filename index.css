@@ -34,7 +34,8 @@ body {
 header {
     background-color: var(--cor-primaria);
     display: flex;
-    justify-content: center;
+    /* Centraliza o logo horizontalmente */
+    justify-content: center; 
     align-items: center;
     padding: 20px 0;
     position: relative;
@@ -46,19 +47,7 @@ header img {
     max-height: 120px;
 }
 
-/* Estilo do Botão no Header (Posicionado) */
-.btn-pedido-header {
-    position: absolute;
-    right: 40px;
-    background-color: #fff;
-    color: var(--cor-primaria);
-    padding: 12px 25px;
-    font-size: 16px;
-}
-
-.btn-pedido-header:hover {
-    background-color: #ffe3b0;
-}
+/* REMOVIDO: O estilo .btn-pedido-header */
 
 /* Mensagem inicial */
 .mensagem h1 {
@@ -91,6 +80,9 @@ h2 {
 
 .cardapio {
     display: flex;
+    /* Adiciona a propriedade de toque para melhor experiência em mobile */
+    -webkit-overflow-scrolling: touch; 
+    
     justify-content: flex-start; 
     gap: 30px;
     margin: 0; 
@@ -104,7 +96,6 @@ h2 {
     flex-shrink: 0; 
     width: 280px;
     cursor: pointer; 
-    /* Garante que nada vaze do item individual */
     overflow: hidden; 
 }
 
@@ -126,10 +117,10 @@ h2 {
     top: 50%;
     transform: translateY(-50%);
     
-    /* TORNA O BOTÃO INVISÍVEL */
+    /* TORNA O BOTÃO INVISÍVEL PARA FOCO NO SWIPE */
     opacity: 0;
     pointer-events: none; /* Impede o clique */
-    transition: none; /* Evita que o botão pisque */
+    transition: none; 
     
     background: rgba(255, 255, 255, 0.9);
     border: none;
@@ -154,9 +145,8 @@ h2 {
     right: 10px;
 }
 
-/* Regra desnecessária com opacity: 0, mas mantida por segurança */
 .carousel-btn:disabled {
-    opacity: 0; /* Mantém 0 para que nunca apareça */
+    opacity: 0; 
     cursor: not-allowed;
 }
 
@@ -399,13 +389,7 @@ footer {
         padding-bottom: 20px;
     }
     
-    /* Reposicionamento do Botão do Header para Mobile */
-    .btn-pedido-header {
-        position: static; 
-        margin-top: 15px; 
-        width: 80%; 
-        max-width: 300px;
-    }
+    /* Reposicionamento do Botão do Header para Mobile foi removido */
 
     /* Cardápio/Carrossel em Mobile */
     .carousel-container {
