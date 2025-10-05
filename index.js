@@ -24,7 +24,7 @@ cardapioImgs.forEach(img => {
     });
 });
 
-// 2. Evento para fechar o modal
+// 2. Evento para fechar o modal (clique no fundo ou no botão 'x')
 if (modal) {
     modal.addEventListener('click', function(event) {
         if (event.target === modal || event.target === fecharBtn) {
@@ -54,27 +54,34 @@ if (track) {
     
     if (totalItems === 0) return;
 
+    // Calcula a largura total de um item (largura + gap, em pixels)
     function getItemFullWidth() {
         const itemWidth = items[0].offsetWidth; 
         const gap = 30; // Gap definido no CSS
         return itemWidth + gap;
     }
 
+    // Calcula o número de itens visíveis na tela
     function getItemsVisible() {
+        // Usa a largura do contêiner para calcular quantos itens cabem
         const containerWidth = track.parentElement.offsetWidth;
         const itemWidth = getItemFullWidth();
         return Math.floor(containerWidth / itemWidth);
     }
 
+    /**
+     * Atualiza o estado dos botões de navegação.
+     */
     function updateButtons() {
         const itemsVisible = getItemsVisible();
         
         prevBtn.disabled = currentIndex === 0;
-        
-        // Desabilita "Próximo" se estivermos no último slide possível
         nextBtn.disabled = currentIndex >= totalItems - itemsVisible;
     }
 
+    /**
+     * Move o carrossel para o índice de slide especificado.
+     */
     function moveToSlide(newIndex) {
         const itemsVisible = getItemsVisible();
         
@@ -97,9 +104,8 @@ if (track) {
     // Configuração inicial
     updateButtons();
 
-    // Eventos de clique
+    // Eventos de clique (mantidos, mas invisíveis para toque)
     nextBtn.addEventListener('click', () => {
-        // Avança apenas 1 item por clique
         moveToSlide(currentIndex + 1); 
     });
 
@@ -107,7 +113,7 @@ if (track) {
         moveToSlide(currentIndex - 1);
     });
     
-    // Recalcula o carrossel ao redimensionar a tela
+    // Recalcula o carrossel ao redimensionar a tela (responsividade)
     window.addEventListener('resize', () => {
         moveToSlide(currentIndex); 
     });
