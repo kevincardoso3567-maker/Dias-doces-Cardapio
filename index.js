@@ -41,80 +41,56 @@ document.addEventListener('keydown', function(event) {
 });
 
 
-// =================== LÓGICA DO CARROSSEL ===================
+// =================== LÓGICA DO CARROSSEL (CLIQUE/NAVEGAÇÃO) ===================
+// Usa scrollBy para navegação por clique e detecta a posição de rolagem nativa.
 
 const track = document.querySelector('.carousel-track');
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
 
 if (track) {
-    let currentIndex = 0;
     const items = document.querySelectorAll('.cardapio .item');
-    const totalItems = items.length;
     
-    if (totalItems === 0) return;
+    if (items.length === 0) return;
 
-    // Calcula a largura total de um item (largura + gap, em pixels)
-    function getItemFullWidth() {
-        const itemWidth = items[0].offsetWidth; 
-        const gap = 30; // Gap definido no CSS
-        return itemWidth + gap;
+    // A função para rolar o carrossel (nativa)
+    function scrollCarousel(direction) {
+        // Define o quanto rolar: 300px ou a largura do contêiner
+        const scrollAmount = 300; 
+        
+        track.scrollBy({
+            left: direction * scrollAmount,
+            behavior: 'smooth'
+        });
     }
 
-    // Calcula o número de itens visíveis na tela
-    function getItemsVisible() {
-        // Usa a largura do contêiner para calcular quantos itens cabem
-        const containerWidth = track.parentElement.offsetWidth;
-        const itemWidth = getItemFullWidth();
-        return Math.floor(containerWidth / itemWidth);
-    }
-
-    /**
-     * Atualiza o estado dos botões de navegação.
-     */
+    // Função para checar e desabilitar os botões (agora que eles estão visíveis)
     function updateButtons() {
-        const itemsVisible = getItemsVisible();
-        
-        prevBtn.disabled = currentIndex === 0;
-        nextBtn.disabled = currentIndex >= totalItems - itemsVisible;
+        // Usa um pequeno delay para garantir que o navegador calculou a rolagem
+        setTimeout(() => {
+            // Verifica se está no início
+            prevBtn.disabled = track.scrollLeft === 0;
+            
+            // Verifica se está no fim (com uma margem de erro de 5 pixels)
+            const isEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 5;
+            nextBtn.disabled = isEnd;
+        }, 100); 
     }
 
-    /**
-     * Move o carrossel para o índice de slide especificado.
-     */
-    function moveToSlide(newIndex) {
-        const itemsVisible = getItemsVisible();
-        
-        // Limita o índice para que o carrossel não deslize para o vazio
-        if (newIndex < 0) {
-            newIndex = 0;
-        } else if (newIndex > totalItems - itemsVisible) {
-            newIndex = totalItems - itemsVisible;
-        }
-
-        currentIndex = newIndex;
-        
-        // Calcula o deslocamento total
-        const offset = -currentIndex * getItemFullWidth();
-        track.style.transform = `translateX(${offset}px)`;
-        
-        updateButtons();
-    }
-    
-    // Configuração inicial
-    updateButtons();
-
-    // Eventos de clique (mantidos, mas invisíveis para toque)
+    // Eventos de clique para os botões
     nextBtn.addEventListener('click', () => {
-        moveToSlide(currentIndex + 1); 
+        scrollCarousel(1); // Rola para a direita
     });
 
     prevBtn.addEventListener('click', () => {
-        moveToSlide(currentIndex - 1);
+        scrollCarousel(-1); // Rola para a esquerda
     });
     
-    // Recalcula o carrossel ao redimensionar a tela (responsividade)
-    window.addEventListener('resize', () => {
-        moveToSlide(currentIndex); 
-    });
+    // Atualiza os botões sempre que a rolagem for finalizada (incluindo o swipe nativo)
+    track.addEventListener('scroll', updateButtons);
+    
+    // Inicializa o estado dos botões ao carregar a página e redimensionar
+    window.addEventListener('load', updateButtons);
+    window.addEventListener('resize', updateButtons);
+    updateButtons(); 
 }
