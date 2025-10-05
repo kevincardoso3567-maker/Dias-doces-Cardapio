@@ -159,6 +159,12 @@ h2 {
     align-items: center;
     justify-content: center;
     margin-left: 5px;
+    
+    /* VOLTOU: Cor do texto para ser visível (as setas < e >) */
+    color: var(--cor-texto); 
+    
+    /* REMOVIDO: Estilos de background-image para usar a seta padrão do HTML */
+    background-image: none !important;
 }
 
 .carousel-btn:hover {
@@ -174,6 +180,8 @@ h2 {
     color: #333;
     border-color: #ccc;
 }
+
+/* REMOVIDO: Estilos específicos para .prev-btn */
 
 /* FIM: ESTILOS DO CARROSSEL */
 
